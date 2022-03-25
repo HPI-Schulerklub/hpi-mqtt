@@ -1,0 +1,20 @@
+{
+  "name": "HPI-Schuelerklub-MQTT",
+  "version": "1.0.0",
+  "description": "Eine Bibliothek, um ohne direkten Kontakt zur WiFi- und PubSub-Bibliothek mit einem MQTT-Broker zu kommunizieren.",
+  "keywords": "mqtt, wifi, pubsub, network, internet",
+  "license": "MIT",
+  "frameworks": "arduino",
+  "platforms": "espressif32",
+  "headers": "MQTT.h",
+  "examples": [
+    {
+      "name": "Example",
+      "base": "examples",
+      "files": [ "example.cpp" ]
+    }
+  ],
+  "dependencies": {
+    "knolleary/PubSubClient": "^2.8"
+  }
+}
