@@ -24,6 +24,7 @@ public:
 
 private:
   void connect();
+  void heartbeat();
 
   char* server;
   char* device_id;
@@ -35,6 +36,8 @@ private:
 
   WiFiClient wiFiClient;
   PubSubClient client;
+
+  ulong last_heartbeat;
 };
 
 void mqtt_callback(char* topicBytes, byte* messageBuffer, unsigned int length);

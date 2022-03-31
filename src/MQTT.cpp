@@ -11,6 +11,7 @@ MQTTClass::MQTTClass(void (*internal_callback)(char* topicBytes, byte* messageBu
 
   this->internal_callback = internal_callback;
 
+  this->last_heartbeat = 0;
 }
 
 MQTTClass::~MQTTClass() {
@@ -74,6 +75,17 @@ void MQTTClass::loop() {
   }
 
   this->client.loop();
+
+  this->heartbeat();
+}
+
+void MQTTClass::heartbeat() {
+  ulong diff = millis() - this->last_heartbeat;
+
+  if (diff > 5000) {
+    this->publish("mqtt-library-debug", "Heartbeat from IP: " + WiFi.localIP().toString());
+    this->last_heartbeat = millis();
+  }
 }
 
 external_callback_t MQTTClass::get_external_callback() {
