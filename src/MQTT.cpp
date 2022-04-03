@@ -83,7 +83,7 @@ void MQTTClass::heartbeat() {
   ulong diff = millis() - this->last_heartbeat;
 
   if (diff > 5000) {
-    this->publish("mqtt-library-debug", "Heartbeat from IP: " + WiFi.localIP().toString());
+    this->publish("mqtt-library-debug", "{ \"type\": \"heartbeat\", \"ip\": \"" + WiFi.localIP().toString() + "\", \"deviceId\": \"" + String(this->device_id) + "\" }");
     this->last_heartbeat = millis();
   }
 }
