@@ -12,19 +12,22 @@ class MQTTClass {
 public:
   MQTTClass(void (*internal_callback)(char* topicBytes, byte* messageBuffer, unsigned int length));
   ~MQTTClass();
-  void setup(String ssid, String password, String server, int port, String device_id, void (*callback_ptr)(String topic, String message));
+  void setup(const String& ssid, const String& password, const String& server, int port, const String& device_id, void (*callback_ptr)(String topic, String message));
   void loop();
 
-  void subscribe(String topic);
-  void publish(String topic, String message);
-  void publish(String topic, int message);
-  void publish(String topic, float message);
+  void subscribe(const String& topic);
+  void publish(const String& topic, const String& message);
+  void publish(const String& topic, int message);
+  void publish(const String& topic, float message);
 
   external_callback_t get_external_callback();
 
 private:
   void connect();
   void heartbeat();
+
+  char* wifi_ssid;
+  char* wifi_password;
 
   char* server;
   char* device_id;

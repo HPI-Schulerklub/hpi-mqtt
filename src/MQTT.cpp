@@ -15,11 +15,13 @@ MQTTClass::MQTTClass(void (*internal_callback)(char* topicBytes, byte* messageBu
 }
 
 MQTTClass::~MQTTClass() {
+  free(this->wifi_ssid);
+  free(this->wifi_password);
   free(this->server);
   free(this->device_id);
 }
 
-void MQTTClass::setup(String ssid, String password, String server, int port, String device_id, void (*callback_ptr)(String topic, String message)) {
+void MQTTClass::setup(const String& ssid, const String& password, const String& server, int port, const String& device_id, void (*callback_ptr)(String topic, String message)) {
   // Copy server Domain/IP
   // PubSub does not copy the string itself, so it's missing on a possibly necessary reconnect
   const unsigned int server_length = server.length() + 1;
@@ -89,20 +91,20 @@ external_callback_t MQTTClass::get_external_callback() {
   return this->external_callback;
 }
 
-void MQTTClass::subscribe(String topic) {
+void MQTTClass::subscribe(const String& topic) {
   this->client.subscribe(topic.c_str());
   this->topics.add(topic);
 }
 
-void MQTTClass::publish(String topic, String message) {
+void MQTTClass::publish(const String& topic, const String& message) {
   this->client.publish(topic.c_str(), message.c_str());
 }
 
-void MQTTClass::publish(String topic, int message) {
+void MQTTClass::publish(const String& topic, int message) {
   this->publish(topic, String(message));
 }
 
-void MQTTClass::publish(String topic, float message){
+void MQTTClass::publish(const String& topic, float message){
   this->publish(topic, String(message));
 }
 
