@@ -35,7 +35,15 @@ void MQTTClass::setup(String ssid, String password, String server, int port, Str
   delay(10);
   Serial.println("Connecting to " + ssid);
 
-  WiFi.begin(ssid.c_str(), password.c_str());
+  const unsigned int ssid_length = ssid.length() + 1;
+  this->wifi_ssid = (char*)calloc(ssid_length, sizeof(char));
+  ssid.toCharArray(this->wifi_ssid, ssid_length);
+
+  const unsigned int password_length = password.length() + 1;
+  this->wifi_password = (char*)calloc(password_length, sizeof(char));
+  password.toCharArray(this->wifi_password, password_length);
+
+  WiFi.begin(this->wifi_ssid, this->wifi_password);
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
