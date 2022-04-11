@@ -35,7 +35,8 @@ void MQTTClass::setup(const String& ssid, const String& password, const String& 
   this->external_callback = callback_ptr;
 
   delay(10);
-  Serial.println("Connecting to " + ssid);
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
 
   const unsigned int ssid_length = ssid.length() + 1;
   this->wifi_ssid = (char*)calloc(ssid_length, sizeof(char));
