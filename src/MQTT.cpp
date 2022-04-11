@@ -75,17 +75,6 @@ void MQTTClass::loop() {
   }
 
   this->client.loop();
-
-  this->heartbeat();
-}
-
-void MQTTClass::heartbeat() {
-  ulong diff = millis() - this->last_heartbeat;
-
-  if (diff > 5000) {
-    this->publish("mqtt-library-debug", "{ \"type\": \"heartbeat\", \"ip\": \"" + WiFi.localIP().toString() + "\", \"deviceId\": \"" + String(this->device_id) + "\" }");
-    this->last_heartbeat = millis();
-  }
 }
 
 external_callback_t MQTTClass::get_external_callback() {
