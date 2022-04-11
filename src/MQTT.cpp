@@ -115,6 +115,8 @@ void mqtt_callback(char* topicBytes, byte* messageBuffer, unsigned int length) {
   String topic = topicBytes;
   String message;
 
+  message.reserve(length);
+
   for (int i = 0; i < length; i++) {
     message += (char)messageBuffer[i];
   }
